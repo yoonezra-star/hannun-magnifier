@@ -62,7 +62,7 @@ Set-Location android
 
 ## 출시 전 필수 교체
 
-- 개발자 공개 이메일과 지원 연락처
+- 개발자 공개 이메일과 지원 연락처: `chw1914@gmail.com`
 - 실제 AdMob 앱 ID 및 광고 단위 ID
 - 업로드 서명키와 안전한 백업 위치
 - Play Console 스토어 URL을 개인정보처리방침에 반영

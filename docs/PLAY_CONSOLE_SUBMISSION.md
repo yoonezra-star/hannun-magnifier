@@ -6,7 +6,7 @@
 - 무료 또는 유료: 무료
 - 카테고리: 도구(Tools)
 - 태그 후보: 돋보기, 접근성, 도구
-- 고객지원 이메일: **출시 전 실제 공개 이메일 입력 필요**
+- 고객지원 이메일: `chw1914@gmail.com`
 - 개인정보처리방침 URL: `https://hannun-magnifier.pages.dev/privacy.html`
 - 지원 URL: `https://hannun-magnifier.pages.dev/support.html`
 
