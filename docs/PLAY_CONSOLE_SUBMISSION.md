@@ -46,12 +46,15 @@
 
 SDK 버전을 올릴 때마다 Google Mobile Ads의 최신 Play 데이터 공개 안내와 이 표를 다시 비교합니다.
 
+- Google Mobile Ads SDK 데이터 공개 안내: https://developers.google.com/admob/android/privacy/play-data-disclosure
+- Google Play 데이터 보안 도움말: https://support.google.com/googleplay/android-developer/answer/10787469
+
 ## 권한 설명
 
 - `CAMERA`: 실시간 돋보기와 화면 캡처에 필수
 - `INTERNET`: AdMob 광고·동의 정보 요청에 사용
 - `WRITE_EXTERNAL_STORAGE`(Android 9 이하만): 캡처 사진 저장
-- `AD_ID`: Google Mobile Ads SDK가 광고 및 부정 사용 방지에 사용
+- `AD_ID`·`ACCESS_ADSERVICES_AD_ID`: Google Mobile Ads SDK가 최종 병합 매니페스트에 추가하며 광고 및 부정 사용 방지에 사용
 
 ## 비공개 테스트
 
