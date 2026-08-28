@@ -185,7 +185,7 @@ function App() {
                     <button className={fontScale === 1.2 ? 'selected' : ''} onClick={() => setFontScale(1.2)}>아주 크게</button>
                   </div>
                 </div>
-                <nav className="policy-links"><a href="/privacy.html">개인정보처리방침</a><a href="/support.html">도움 및 문의</a></nav>
+                <nav className="policy-links"><a href="/test.html">비공개 테스트 참여</a><a href="/privacy.html">개인정보처리방침</a><a href="/support.html">도움 및 문의</a></nav>
                 {Capacitor.isNativePlatform() && <button className="ad-privacy" onClick={async () => { if (!(await openAdPrivacyOptions())) setMessage('현재 변경할 광고 개인정보 설정이 없습니다') }}>광고 개인정보 설정</button>}
               </>
             ) : (

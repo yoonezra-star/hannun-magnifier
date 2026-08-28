@@ -41,6 +41,7 @@ Android SDK 위치는 로컬 `android/local.properties`에 설정합니다. 업�
 - 공개 URL: <https://hannun-magnifier.pages.dev/>
 - 개인정보처리방침: <https://hannun-magnifier.pages.dev/privacy.html>
 - 지원 페이지: <https://hannun-magnifier.pages.dev/support.html>
+- 비공개 테스트 참여 안내: <https://hannun-magnifier.pages.dev/test.html>
 - 빌드 명령: `npm run build`
 - 출력 폴더: `dist`
 - Node.js: 24
@@ -59,6 +60,15 @@ Set-Location android
 ```
 
 실제 `ADMOB_APP_ID`가 없으면 Android release 빌드는 의도적으로 중단됩니다. 개발 중에는 자신의 실제 광고를 누르지 말고 테스트 광고만 사용합니다.
+
+## 비공개 테스트 참여
+
+1. [한눈돋보기 Google 그룹](https://groups.google.com/g/hannun-magnifier-testers)에 가입합니다.
+2. 같은 Google 계정으로 [웹 참여 링크](https://play.google.com/apps/testing/com.yoone.hannunmagnifier)에서 테스터 참여를 선택합니다.
+3. [Play 스토어 앱 페이지](https://play.google.com/store/apps/details?id=com.yoone.hannunmagnifier)에서 설치합니다.
+4. 프로덕션 출시 요건을 위해 14일 이상 참여 상태를 유지합니다.
+
+그룹 가입 정보 반영에는 3~5분 정도 걸릴 수 있습니다.
 
 ## 출시 전 필수 교체
 
