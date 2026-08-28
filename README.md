@@ -28,7 +28,7 @@ npm run build
 
 ## Android
 
-패키지명은 `com.yoone.hannunmagnifier`, 표시 버전은 `1.0.0`, versionCode는 `1`입니다.
+패키지명은 `com.yoone.hannunmagnifier`, 표시 버전은 `1.0.1`, versionCode는 `2`입니다.
 
 ```bash
 npm run android:sync

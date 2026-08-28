@@ -2,6 +2,7 @@ import {
   AdMob,
   AdmobConsentStatus,
   BannerAdPosition,
+  BannerAdPluginEvents,
   BannerAdSize,
 } from '@capacitor-community/admob'
 import { Capacitor } from '@capacitor/core'
@@ -10,6 +11,15 @@ export const ADMOB_TEST_BANNER_ID = 'ca-app-pub-3940256099942544/9214589741'
 export const adsAreLive = import.meta.env.VITE_ADMOB_MODE === 'live'
 
 let startup: Promise<boolean> | null = null
+let bannerSizeListenerReady = false
+
+async function registerBannerSizeListener() {
+  if (bannerSizeListenerReady) return
+  bannerSizeListenerReady = true
+  await AdMob.addListener(BannerAdPluginEvents.SizeChanged, ({ height }) => {
+    document.documentElement.style.setProperty('--ad-banner-height', `${Math.max(0, height)}px`)
+  })
+}
 
 function bannerId() {
   if (!adsAreLive) return ADMOB_TEST_BANNER_ID
@@ -21,6 +31,7 @@ function bannerId() {
 async function initializeAds() {
   if (!Capacitor.isNativePlatform()) return false
 
+  await registerBannerSizeListener()
   await AdMob.initialize({ initializeForTesting: !adsAreLive })
   let consent = await AdMob.requestConsentInfo()
   if (consent.isConsentFormAvailable && consent.status === AdmobConsentStatus.REQUIRED) {

@@ -1,23 +1,33 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { cameraFilter, type ViewMode } from './camera'
+import { cameraStateForError, withCameraTimeout, type CameraState } from './cameraStartup'
 
-type CameraState = 'starting' | 'ready' | 'denied' | 'unavailable'
+function stopStream(stream: MediaStream | null) {
+  stream?.getTracks().forEach((track) => track.stop())
+}
 
 export function useMagnifier() {
   const videoRef = useRef<HTMLVideoElement>(null)
   const streamRef = useRef<MediaStream | null>(null)
+  const requestIdRef = useRef(0)
   const [cameraState, setCameraState] = useState<CameraState>('starting')
   const [facingMode, setFacingMode] = useState<'environment' | 'user'>('environment')
   const [torchOn, setTorchOn] = useState(false)
   const [frozenImage, setFrozenImage] = useState<string | null>(null)
 
-  const stopCamera = useCallback(() => {
-    streamRef.current?.getTracks().forEach((track) => track.stop())
+  const releaseCamera = useCallback(() => {
+    stopStream(streamRef.current)
     streamRef.current = null
+    if (videoRef.current) {
+      videoRef.current.pause()
+      videoRef.current.srcObject = null
+    }
   }, [])
 
   const startCamera = useCallback(async () => {
-    stopCamera()
+    const requestId = requestIdRef.current + 1
+    requestIdRef.current = requestId
+    releaseCamera()
     setCameraState('starting')
     setTorchOn(false)
     try {
@@ -25,7 +35,7 @@ export function useMagnifier() {
         setCameraState('unavailable')
         return
       }
-      const stream = await navigator.mediaDevices.getUserMedia({
+      const pendingStream = navigator.mediaDevices.getUserMedia({
         audio: false,
         video: {
           facingMode: { ideal: facingMode },
@@ -33,24 +43,40 @@ export function useMagnifier() {
           height: { ideal: 1080 },
         },
       })
-      streamRef.current = stream
-      if (videoRef.current) {
-        videoRef.current.srcObject = stream
-        await videoRef.current.play()
+      void pendingStream.then((lateStream) => {
+        if (requestId !== requestIdRef.current) stopStream(lateStream)
+      }).catch(() => undefined)
+
+      const stream = await withCameraTimeout(pendingStream)
+      if (requestId !== requestIdRef.current) {
+        stopStream(stream)
+        return
       }
+
+      streamRef.current = stream
+      const video = videoRef.current
+      if (!video) throw new Error('Camera video element is unavailable')
+      video.srcObject = stream
+      await withCameraTimeout(video.play())
+      if (requestId !== requestIdRef.current) return
       setCameraState('ready')
     } catch (error) {
-      const name = error instanceof DOMException ? error.name : ''
-      setCameraState(name === 'NotAllowedError' ? 'denied' : 'unavailable')
+      if (requestId !== requestIdRef.current) return
+      requestIdRef.current += 1
+      releaseCamera()
+      setCameraState(cameraStateForError(error))
     }
-  }, [facingMode, stopCamera])
+  }, [facingMode, releaseCamera])
 
   useEffect(() => {
     // Camera startup synchronizes the component with the browser media device.
     // eslint-disable-next-line react-hooks/set-state-in-effect
     void startCamera()
-    return stopCamera
-  }, [startCamera, stopCamera])
+    return () => {
+      requestIdRef.current += 1
+      releaseCamera()
+    }
+  }, [releaseCamera, startCamera])
 
   const toggleTorch = useCallback(async () => {
     const track = streamRef.current?.getVideoTracks()[0]

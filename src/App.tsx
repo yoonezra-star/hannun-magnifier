@@ -126,13 +126,14 @@ function App() {
         {displayedImage ? (
           <img className={`camera-media${previewMode ? '' : ' frozen'}`} style={previewMode ? imageStyle : undefined} src={displayedImage} alt={previewMode ? '확대 중인 제품 안내 라벨 예시' : '멈춘 확대 화면'} />
         ) : (
-          <video ref={videoRef} className="camera-media" style={imageStyle} playsInline muted />
+          <video ref={videoRef} className="camera-media" style={imageStyle} autoPlay playsInline muted />
         )}
 
         {!previewMode && cameraState !== 'ready' && !frozenImage && (
           <div className="camera-status">
             {cameraState === 'starting' && <><Focus className="pulse" /><strong>카메라를 준비하고 있습니다</strong></>}
             {cameraState === 'denied' && <><Lock /><strong>카메라 사용을 허용해주세요</strong><span>설정에서 카메라 권한을 켠 뒤 다시 시도하세요.</span><button onClick={startCamera}>다시 시도</button></>}
+            {cameraState === 'timeout' && <><Camera /><strong>카메라 연결이 늦어지고 있습니다</strong><span>권한을 확인한 뒤 다시 시도해주세요.</span><button onClick={startCamera}>다시 시도</button></>}
             {cameraState === 'unavailable' && <><Camera /><strong>카메라를 열 수 없습니다</strong><span>카메라가 있는 휴대폰에서 다시 시도해주세요.</span><button onClick={startCamera}>다시 시도</button></>}
           </div>
         )}

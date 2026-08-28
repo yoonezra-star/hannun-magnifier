@@ -1,5 +1,6 @@
 package com.yoone.hannunmagnifier;
 
+import android.Manifest;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.media.MediaScannerConnection;
@@ -9,18 +10,41 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Base64;
 import com.getcapacitor.JSObject;
+import com.getcapacitor.PermissionState;
 import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
 import com.getcapacitor.PluginMethod;
 import com.getcapacitor.annotation.CapacitorPlugin;
+import com.getcapacitor.annotation.Permission;
+import com.getcapacitor.annotation.PermissionCallback;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 
-@CapacitorPlugin(name = "ImageSaver")
+@CapacitorPlugin(
+    name = "ImageSaver",
+    permissions = { @Permission(alias = "storage", strings = { Manifest.permission.WRITE_EXTERNAL_STORAGE }) }
+)
 public class ImageSaverPlugin extends Plugin {
     @PluginMethod
     public void save(PluginCall call) {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P && getPermissionState("storage") != PermissionState.GRANTED) {
+            requestPermissionForAlias("storage", call, "storagePermissionCallback");
+            return;
+        }
+        saveImage(call);
+    }
+
+    @PermissionCallback
+    public void storagePermissionCallback(PluginCall call) {
+        if (getPermissionState("storage") != PermissionState.GRANTED) {
+            call.reject("사진을 저장하려면 저장공간 권한이 필요합니다.");
+            return;
+        }
+        saveImage(call);
+    }
+
+    private void saveImage(PluginCall call) {
         String dataUrl = call.getString("dataUrl");
         String requestedName = call.getString("filename", "한눈돋보기.jpg");
         if (dataUrl == null || !dataUrl.contains(",")) {

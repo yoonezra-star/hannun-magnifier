@@ -24,7 +24,10 @@ button { touch-action: manipulation; }
   padding: max(16px, env(safe-area-inset-top)) 16px max(20px, env(safe-area-inset-bottom));
   background: radial-gradient(circle at 50% -20%, #25362b 0, #111714 36%, #0b0f0d 75%);
 }
-.app-shell.ads-active { padding-bottom: max(88px, calc(env(safe-area-inset-bottom) + 70px)); }
+.app-shell.ads-active {
+  padding-bottom: max(calc(var(--ad-banner-height, 50px) + 24px), calc(env(safe-area-inset-bottom) + var(--ad-banner-height, 50px) + 16px));
+}
+.app-shell.ads-active .viewer { max-height: calc(53vh - var(--ad-banner-height, 50px)); }
 
 .top-bar { display: flex; justify-content: space-between; align-items: center; margin: 3px 2px 14px; }
 .eyebrow { color: var(--yellow); font-size: calc(.76rem * var(--font-scale)); font-weight: 800; letter-spacing: .08em; }
@@ -104,5 +107,6 @@ h1 { font-size: calc(1.55rem * var(--font-scale)); line-height: 1.15; margin: 4p
 
 @media (max-height: 760px) {
   .viewer { max-height: 43vh; }
+  .app-shell.ads-active .viewer { max-height: calc(43vh - var(--ad-banner-height, 50px)); }
   .quick-actions button { min-height: 68px; }
 }
