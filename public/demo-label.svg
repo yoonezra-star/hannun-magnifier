@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1200">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#6f7d73"/><stop offset="1" stop-color="#29332d"/></linearGradient>
+    <filter id="shadow"><feDropShadow dx="0" dy="24" stdDeviation="28" flood-opacity=".35"/></filter>
+  </defs>
+  <rect width="900" height="1200" fill="url(#bg)"/>
+  <g transform="rotate(-4 450 600)" filter="url(#shadow)">
+    <rect x="95" y="245" width="710" height="650" rx="28" fill="#f8f2df"/>
+    <rect x="95" y="245" width="710" height="105" rx="28" fill="#f5c84b"/>
+    <rect x="95" y="325" width="710" height="25" fill="#f5c84b"/>
+    <text x="145" y="315" font-family="sans-serif" font-size="45" font-weight="800" fill="#17201b">제품 사용 안내</text>
+    <text x="145" y="435" font-family="sans-serif" font-size="30" font-weight="700" fill="#27332c">모델명</text>
+    <text x="145" y="490" font-family="sans-serif" font-size="58" font-weight="800" fill="#17201b">HN-2026</text>
+    <path d="M145 545h610" stroke="#c8c0af" stroke-width="4"/>
+    <text x="145" y="620" font-family="sans-serif" font-size="29" fill="#445149">안전한 사용을 위해 전원을 끈 뒤</text>
+    <text x="145" y="667" font-family="sans-serif" font-size="29" fill="#445149">마른 천으로 닦아주세요.</text>
+    <text x="145" y="760" font-family="sans-serif" font-size="27" font-weight="700" fill="#6a736c">고객센터</text>
+    <text x="145" y="820" font-family="sans-serif" font-size="47" font-weight="800" fill="#e95042">1588-0000</text>
+  </g>
+</svg>

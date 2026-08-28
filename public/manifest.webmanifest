@@ -1,0 +1,14 @@
+{
+  "name": "한눈돋보기 - 큰글씨 확대경",
+  "short_name": "한눈돋보기",
+  "description": "작은 글씨와 물건을 쉽고 크게 보는 돋보기",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#111714",
+  "theme_color": "#111714",
+  "lang": "ko-KR",
+  "orientation": "portrait",
+  "icons": [
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
