@@ -8,8 +8,11 @@
 
 `hannun-magnifier-1.0.1-liveads-signed.aab`는 비공개 테스트에서 발견한 카메라 초기화와 광고 겹침 문제를 수정한 업데이트입니다. 표시 버전은 `1.0.1`, versionCode는 `2`입니다.
 
+`hannun-magnifier-1.0.2-liveads-signed.aab`는 초확대 또는 카메라 전환 후 화면을 복구하는 `화면 리셋` 기능을 추가한 업데이트입니다. 표시 버전은 `1.0.2`, versionCode는 `3`입니다.
+
 - 업로드 인증서 SHA-256: `A7:34:5B:35:EF:88:E4:39:DE:7B:1F:92:F6:AB:12:9C:DC:C2:6F:2D:C9:5A:70:3F:87:74:3D:26:47:75:AF:FE`
 - 테스트 AAB 파일 SHA-256: `5E760F4F85D248453DD7C85546EF10DEB1BA91BC6E5FB9FA4E025753090DDE47`
 - 실제 광고 AAB 파일 SHA-256: `919E234771C4CA2E92D4F9F03A2C3B7F62ED84A0F9302A54BAB1D1DBAB5E7160`
 - 1.0.1 실제 광고 AAB 파일 SHA-256: `B79246FB3491FFE5A35FEA62677B96D074076E381517C80937F9B775F9994EEC`
+- 1.0.2 실제 광고 AAB 파일 SHA-256: `526B1563178185951590D72436C224C6222A1F105F6333F9E52FE4336843D290`
 - bundletool 1.18.3 검증: 통과

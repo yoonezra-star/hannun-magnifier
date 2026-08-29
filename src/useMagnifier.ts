@@ -10,8 +10,8 @@ export function useMagnifier() {
   const videoRef = useRef<HTMLVideoElement>(null)
   const streamRef = useRef<MediaStream | null>(null)
   const requestIdRef = useRef(0)
+  const facingModeRef = useRef<'environment' | 'user'>('environment')
   const [cameraState, setCameraState] = useState<CameraState>('starting')
-  const [facingMode, setFacingMode] = useState<'environment' | 'user'>('environment')
   const [torchOn, setTorchOn] = useState(false)
   const [frozenImage, setFrozenImage] = useState<string | null>(null)
 
@@ -24,7 +24,7 @@ export function useMagnifier() {
     }
   }, [])
 
-  const startCamera = useCallback(async () => {
+  const startCameraFor = useCallback(async (facingMode: 'environment' | 'user') => {
     const requestId = requestIdRef.current + 1
     requestIdRef.current = requestId
     releaseCamera()
@@ -66,17 +66,20 @@ export function useMagnifier() {
       releaseCamera()
       setCameraState(cameraStateForError(error))
     }
-  }, [facingMode, releaseCamera])
+  }, [releaseCamera])
+
+  const startCamera = useCallback(
+    () => startCameraFor(facingModeRef.current),
+    [startCameraFor],
+  )
 
   useEffect(() => {
-    // Camera startup synchronizes the component with the browser media device.
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    void startCamera()
+    void startCameraFor(facingModeRef.current)
     return () => {
       requestIdRef.current += 1
       releaseCamera()
     }
-  }, [releaseCamera, startCamera])
+  }, [releaseCamera, startCameraFor])
 
   const toggleTorch = useCallback(async () => {
     const track = streamRef.current?.getVideoTracks()[0]
@@ -114,8 +117,16 @@ export function useMagnifier() {
   const unfreeze = useCallback(() => setFrozenImage(null), [])
   const switchCamera = useCallback(() => {
     setFrozenImage(null)
-    setFacingMode((current) => (current === 'environment' ? 'user' : 'environment'))
-  }, [])
+    const nextFacingMode = facingModeRef.current === 'environment' ? 'user' : 'environment'
+    facingModeRef.current = nextFacingMode
+    void startCameraFor(nextFacingMode)
+  }, [startCameraFor])
+
+  const resetCamera = useCallback(() => {
+    setFrozenImage(null)
+    facingModeRef.current = 'environment'
+    void startCameraFor('environment')
+  }, [startCameraFor])
 
   return {
     videoRef,
@@ -127,5 +138,6 @@ export function useMagnifier() {
     capture,
     unfreeze,
     switchCamera,
+    resetCamera,
   }
 }

@@ -42,6 +42,7 @@ function App() {
     capture,
     unfreeze,
     switchCamera,
+    resetCamera,
   } = useMagnifier()
 
   useEffect(() => {
@@ -109,6 +110,14 @@ function App() {
     if (!(await toggleTorch())) setMessage('이 기기에서는 불빛을 켤 수 없습니다')
   }
 
+  const resetMagnifier = () => {
+    setZoom(1)
+    setBrightness(1)
+    setViewMode('normal')
+    resetCamera()
+    setMessage('카메라를 다시 시작합니다')
+  }
+
   return (
     <main className={`app-shell${adsActive ? ' ads-active' : ''}`}>
       <header className="top-bar">
@@ -151,6 +160,9 @@ function App() {
           <strong>{zoom.toFixed(1)}×</strong><span>누르면 1배</span>
         </button>
         <button className="zoom-button primary" onClick={() => changeZoom(ZOOM_STEP)} aria-label="확대"><Plus /></button>
+        <button className="camera-reset-button" onClick={resetMagnifier} aria-label="카메라 화면 리셋">
+          <RotateCcw /><span>화면 리셋</span><small>안 보일 때 누르세요</small>
+        </button>
       </section>
 
       <section className="quick-actions" aria-label="돋보기 기능">
@@ -197,6 +209,7 @@ function App() {
                   <li><strong>작은 글씨를 화면 가운데 둡니다.</strong><span>휴대폰을 앞뒤로 천천히 움직이면 초점이 맞습니다.</span></li>
                   <li><strong>＋와 －로 크기를 조절합니다.</strong><span>초확대는 한 번에 10배로 크게 보여줍니다.</span></li>
                   <li><strong>흔들리면 화면 멈춤을 누릅니다.</strong><span>멈춘 화면을 편하게 확인한 뒤 다시 보기로 돌아갑니다.</span></li>
+                  <li><strong>화면이 안 돌아오면 화면 리셋을 누릅니다.</strong><span>확대와 보기 설정을 초기화하고 후면 카메라를 다시 시작합니다.</span></li>
                 </ol>
               </>
             )}

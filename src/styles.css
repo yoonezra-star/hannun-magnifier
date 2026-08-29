@@ -67,6 +67,9 @@ h1 { font-size: calc(1.55rem * var(--font-scale)); line-height: 1.15; margin: 4p
 .zoom-value { display: flex; flex-direction: column; align-items: center; justify-content: center; background: #f7f1e1; color: #141916; }
 .zoom-value strong { font-size: calc(1.45rem * var(--font-scale)); line-height: 1; }
 .zoom-value span { margin-top: 4px; color: #5e675f; font-size: calc(.68rem * var(--font-scale)); }
+.camera-reset-button { grid-column: 1 / -1; min-height: 56px; border: 1px solid #52645a; border-radius: 18px; color: white; background: #26322b; display: flex; align-items: center; justify-content: center; gap: 9px; font-weight: 800; }
+.camera-reset-button svg { width: 23px; height: 23px; color: var(--yellow); }
+.camera-reset-button small { color: var(--muted); font-size: calc(.7rem * var(--font-scale)); font-weight: 600; }
 
 .quick-actions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; }
 .quick-actions button { min-height: 80px; padding: 10px 6px; border: 1px solid #334139; border-radius: 20px; background: var(--panel); color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 7px; font-weight: 700; font-size: calc(.82rem * var(--font-scale)); }
